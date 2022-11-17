@@ -5,7 +5,7 @@ import SelectScreen from './screens/SelectScreen';
 import { PermissionsAndroid } from 'react-native';
 import { Camera } from 'expo-camera';
 
-//import ARScreen from './screens/ARScreen';
+import ARScreen from './screens/ARScreen';
 
 //ANDROID PERMISSIONS
 const requestCameraPermission = async () => {
