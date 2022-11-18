@@ -26,7 +26,9 @@ function SelectScreen({route, navigation}) {
     var buttonContainer = (
         <View style={styles.buttons}>
             <Button text={"Camera"} 
-            onPress={() => navigation.navigate('Camera')} 
+            onPress={() => navigation.navigate('Camera', {
+                list: list
+            })} 
             backgroundColor={'lightblue'}
             textColor={'white'}
             />

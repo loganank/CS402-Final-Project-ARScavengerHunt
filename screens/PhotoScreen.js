@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
     }
   });
 
-  let plist = [];
-  let curphoto = 0;
-  let plength = 0;
-
+  let selected = 0;
 
 function PhotoFragment(props) {
     let ui = <Image style={styles.photo} source={props.source}/>
@@ -39,40 +36,30 @@ function PhotoFragment(props) {
 function PhotoScreen({route, navigation}) {
 
     const {list} = route.params;
-    const [selected, setSelected] = useState(0);
 
     console.log("list from photo screen: " + list);
 
     const [photo, setPhoto] = useState(list[selected].uri);
-    
+
 
     function prevImage() {
-        if (selected == 0)
-        {
-          return;
+        if (selected != 0) {
+          setPhoto(list[selected - 1].uri);
+          selected = selected - 1;
         }
-        else{
-          setSelected(selected - 1);
-          setPhoto(list[selected].uri);
-        }
+        console.log(selected);
       };
       
     function nextImage() {
         var lastindex = list.length - 1;
-        if (lastindex == selected)
+        if (lastindex != selected)
         {
-            return;
+            setPhoto(list[selected + 1].uri);
+            selected = selected + 1;
         }
-        else
-        {
-            setSelected(selected + 1);
-            setPhoto(list[selected].uri);
-        }
+        console.log(selected);
     };
 
-    //list.forEach(element => {
-        console.log(list[selected].uri);
-    //});
     var ui= <View style={styles.container}>
         <PhotoFragment source={{uri: photo}} />
         <View style={styles.buttons} >

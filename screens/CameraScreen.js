@@ -22,20 +22,20 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         padding: 5,
     },
-    preview: {
-        flex: 3,
-        justifyContent: 'center',
-    },
   });
 
   let plist = [];
 
-function CameraScreen({navigation}) {
+function CameraScreen({route, navigation}) {
+    let {list} = route.params;
+    
+    console.log("list from camera screen: " + list);
+
     const [hasCameraPermission, setCameraHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [onetime, setOneTime] = useState(true);
     const [photo, setPhoto] = useState('../constants/favicon.png');
-    const [photolist, setPhotoList] = useState(plist);
+    const [photolist, setPhotoList] = useState(list);
     const cameraRef = useRef(null)
 
     useEffect(() => { // called every redraw
@@ -62,7 +62,7 @@ function CameraScreen({navigation}) {
         let photo = await cameraRef.current.takePictureAsync(options);
         photo.name="photo" + photolist.length;
         setPhoto(photo.uri);
-        const newList = [photo, ...photolist];
+        const newList = [...photolist, photo];
         setPhotoList(newList);
     }
 
@@ -97,9 +97,6 @@ function CameraScreen({navigation}) {
                     backgroundColor={'lightblue'}
                     textColor={'white'}
                 />
-            </View>
-            <View style={styles.preview} >
-                <PhotoFragment source={{uri: photo}} />
             </View>
         </View> 
     }
