@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from "react-native";
 import {Button} from '../components/Button';
-import ListGrid from '../components/listGrid';
 import PhotoScreen from '../screens/PhotoScreen';
-import PreviewList from '../components/previewList';
 import {PhotoFragment} from '../screens/PhotoScreen';
 
 import { Camera } from 'expo-camera';
@@ -89,11 +87,6 @@ function CameraScreen({route, navigation}) {
                         ? Camera.Constants.Type.front
                         : Camera.Constants.Type.back
                     )} 
-                    backgroundColor={'lightblue'}
-                    textColor={'white'}
-                />
-                <Button text={"Switch"} 
-                    onPress={() => switchMode()} 
                     backgroundColor={'lightblue'}
                     textColor={'white'}
                 />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
 import {Button} from '../components/Button';
-import PreviewList from '../components/previewList';
 
 const styles = StyleSheet.create({
     container: {
@@ -36,8 +35,6 @@ function PhotoFragment(props) {
 function PhotoScreen({route, navigation}) {
 
     const {list} = route.params;
-
-    console.log("list from photo screen: " + list);
 
     const [photo, setPhoto] = useState(list[selected].uri);
 
@@ -74,7 +71,7 @@ function PhotoScreen({route, navigation}) {
                 textColor={'white'}
             />
         </View>
-        <Text style={styles.current}> Showing current image {selected + 1}/{list.length}</Text>
+        <Text style={styles.current}> Showing image {selected + 1}/{list.length}</Text>
     </View>
     
  /*var ui=<View>
