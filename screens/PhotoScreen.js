@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   let selected = 0;
 
 function PhotoFragment(props) {
+    console.log(props.source);
     let ui = <Image style={styles.photo} source={props.source}/>
     return (ui);
 }  
@@ -36,12 +37,12 @@ function PhotoScreen({route, navigation}) {
 
     const {list} = route.params;
 
-    const [photo, setPhoto] = useState(list[selected].uri);
+    const [photo, setPhoto] = useState(list[selected]);
 
 
     function prevImage() {
         if (selected != 0) {
-          setPhoto(list[selected - 1].uri);
+          setPhoto(list[selected - 1]);
           selected = selected - 1;
         }
         console.log(selected);
@@ -51,7 +52,7 @@ function PhotoScreen({route, navigation}) {
         var lastindex = list.length - 1;
         if (lastindex != selected)
         {
-            setPhoto(list[selected + 1].uri);
+            setPhoto(list[selected + 1]);
             selected = selected + 1;
         }
         console.log(selected);
@@ -73,12 +74,7 @@ function PhotoScreen({route, navigation}) {
         </View>
         <Text style={styles.current}> Showing image {selected + 1}/{list.length}</Text>
     </View>
-    
- /*var ui=<View>
-        <PhotoFragment source={{uri: photo}} />
-        
-        
-    </View>*/
+
     return (ui);
 }
 

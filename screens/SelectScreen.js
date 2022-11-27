@@ -6,6 +6,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {Button} from '../components/Button';
 import {BetterText} from '../components/BetterText';
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -18,40 +19,63 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
     },
     checkboxes: {
+        flex: 1,
         flexDirection: 'column',
       },
     checkbox: {
+        flex: 1,
         flexDirection: 'row',
       },
   });
 
-  let plist = [];
-
 function SelectScreen({route, navigation}) {
 
-    const {list} = route.params;
-    const [checkboxOne, setCheckboxOne] = useState(false);
+    const {list, completedLocations} = route.params;
+
+    let [checkboxStates, setCheckboxStates] = React.useState([false, false, false]);
+
+    useEffect(() => { // called every redraw
+      if (checkboxStates != completedLocations) {
+        setCheckboxStates(completedLocations);
+      }
+  }, [completedLocations]);
+
+    const Checkbox = ({checkboxState, text}) => (
+      <View style={styles.checkbox}>
+        <BouncyCheckbox
+          isChecked={checkboxState}
+          fillColor="green"
+          size={25}
+          disabled={true}
+        />
+        <BetterText text={text} textColor={'black'}/>
+      </View>
+    )
 
     var buttonContainer = (
         <View style={styles.container}>
             <BetterText text="You are going to be going on a Scavenger Hunt on the BSU Campus." textColor={'black'}/>
             <BetterText text="You have to find of the landmarks and take a picture of them to complete the hunt." textColor={'black'}/>
             <View style={styles.checkboxes}>
-                <View style={styles.checkbox}>
-                    <BouncyCheckbox
-                        fillColor="green"
-                        size={25}
-                        onPress={() => {setCheckboxOne(!checkboxOne)}}
+                <Checkbox 
+                  checkboxState={checkboxStates[0]}
+                  text="Boise State's signature blue field"
                 />
-                <BetterText text="Landmark 1." textColor={'black'}/>
-            </View>
-            
-            </View>
+                <Checkbox 
+                  checkboxState={checkboxStates[1]}
+                  text="The entrance to the quietest place on campus"
+                />
+                <Checkbox 
+                  checkboxState={checkboxStates[2]}
+                  text="The sign of the student union building"
+                />
+        </View>
             
             <View style={styles.buttons}>
                 <Button text={"Camera"} 
                 onPress={() => navigation.navigate('Camera', {
-                    list: list
+                    list: list,
+                    completedLocations: completedLocations
                 })} 
                 backgroundColor={'lightblue'}
                 textColor={'white'}

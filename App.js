@@ -13,7 +13,7 @@ function App() {
   return (
     <NavigationContainer initialRouteName="AR">
       <Stack.Navigator>
-        <Stack.Screen name="Select" component={SelectScreen} initialParams={{ list: [] }}/>
+        <Stack.Screen name="Select" component={SelectScreen} initialParams={{ list: [], completedLocations: [false, false, false] }}/>
         <Stack.Screen options={{headerShown: false}} name="Camera" component={CameraScreen}/>
         <Stack.Screen name="Photo" component={PhotoScreen}/>
       </Stack.Navigator>
